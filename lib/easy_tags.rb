@@ -19,6 +19,11 @@ module EasyTags
     autoload :Default, 'easy_tags/generators/default'
   end
 
+  module Options
+    autoload :Item, 'easy_tags/options/item'
+    autoload :List, 'easy_tags/options/list'
+  end
+
   class << self
     attr_accessor :configuration
 

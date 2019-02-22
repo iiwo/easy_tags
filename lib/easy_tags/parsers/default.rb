@@ -11,21 +11,7 @@ module EasyTags
         def parse(tag_list_string)
           return TagList.new if tag_list_string.to_s.empty?
 
-          TagList.new(*tag_list_string.split(/,/))
-        end
-
-        ##
-        # Filters a tag name string
-        #
-        # Example:
-        #   EasyTags::Parsers::Default.filter(' One')
-        #   'One'
-        #
-        #   EasyTags::Parsers::Default.filter('    ')
-        #   nil
-        def filter(name)
-          return nil if name.to_s.empty?
-          name.to_s.strip
+          tag_list_string.split(/,/).map(&:strip)
         end
       end
     end

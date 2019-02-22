@@ -8,8 +8,8 @@ RSpec.describe 'easy_tags_on' do
     taggable.taggings.create!(tag: tag, context: context)
   end
 
-  describe 'Taggable Method Generation' do
-    before(:each) do
+  describe 'method generation' do
+    before do
       TaggableModel.tagging_contexts = []
       TaggableModel.easy_tags_on(:tags, :languages, :skills, :needs, :offerings)
     end
@@ -18,7 +18,7 @@ RSpec.describe 'easy_tags_on' do
       expect(taggable.class).to respond_to(:tagging_contexts)
     end
 
-    it 'have all tag types' do
+    it 'has all tag types' do
       expect(taggable.class.tagging_contexts).to eq([:tags, :languages, :skills, :needs, :offerings])
     end
 
@@ -26,13 +26,13 @@ RSpec.describe 'easy_tags_on' do
       expect(taggable).to respond_to(:tags, :skills, :languages)
     end
 
-    it 'generates a tag_list accessor/setter for each tag type' do
+    it 'generates a tag_list accessor/setster for each tag type' do
       expect(taggable).to respond_to(:tags_list, :skills_list, :languages_list)
       expect(taggable).to respond_to(:tags_list=, :skills_list=, :languages_list=)
     end
   end
 
-  describe 'Tagging Contexts' do
+  describe 'options processing' do
     it 'eliminates duplicate tagging contexts ' do
       TaggableModel.easy_tags_on(:skills, :skills)
       expect(TaggableModel.tagging_contexts.count(:skills)).to eq(1)
@@ -76,7 +76,6 @@ RSpec.describe 'easy_tags_on' do
   end
 
   describe '#context_list' do
-
     before do
       create_tag_for(taggable: taggable, tag_name: 'bumble')
       create_tag_for(taggable: taggable, tag_name: 'busy')
@@ -96,18 +95,68 @@ RSpec.describe 'easy_tags_on' do
     it { expect(taggable.bees).to eq(%w[bumble busy]) }
   end
 
+  shared_examples 'has proper values' do
+    it 'sets proper context_list value' do
+      expect(reloaded_taggable.bees_list).to eq('bumble,busy')
+    end
+
+    it 'sets proper context value' do
+      expect(reloaded_taggable.bees).to eq(%w[bumble busy])
+    end
+  end
+
   describe '#context_list=' do
-    subject do
-      lambda do
-        taggable.bees_list = 'bumble,busy'
-        taggable.save
-      end
+    before do
+      TaggableModel.tagging_contexts = []
+      TaggableModel.easy_tags_on(:bees)
+    end
+
+    before do
+      taggable.bees_list = 'bumble, busy'
+      taggable.save!
     end
 
     context 'no existing tags' do
+      describe 'unpersisted' do
+        it 'sets proper context_list value' do
+          expect(taggable.bees_list).to eq('bumble,busy')
+        end
+
+        it 'sets proper context value' do
+          expect(taggable.bees).to eq(%w[bumble busy])
+        end
+      end
+
+      describe 'persistence' do
+        subject(:reloaded_taggable) { TaggableModel.find(taggable.id) }
+
+        it 'sets proper context_list value' do
+          expect(reloaded_taggable.bees_list).to eq('bumble,busy')
+        end
+
+        it 'sets proper context value' do
+          expect(reloaded_taggable.bees).to eq(%w[bumble busy])
+        end
+      end
     end
 
     context 'with existing tags' do
+    end
+
+    context 'removing tags' do
+      subject(:taggable) { TaggableModel.create(bees: 'bumble,busy') }
+
+      before do
+        taggable.bees_list = 'cool, angry'
+      end
+
+      it 'sets proper context_list value' do
+        expect(taggable.bees_list).to eq('cool,angry')
+      end
+
+      it 'sets proper context value' do
+        expect(taggable.bees).to eq(%w[cool angry])
+      end
     end
   end
 

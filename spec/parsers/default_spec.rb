@@ -16,10 +16,4 @@ RSpec.describe EasyTags::Parsers::Default do
       end
     end
   end
-
-  describe '.filter' do
-    it 'strips string' do
-      expect(described_class.filter('  One and Two   ')).to eq('One and Two')
-    end
-  end
 end
