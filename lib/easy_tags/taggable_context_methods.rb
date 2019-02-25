@@ -36,19 +36,19 @@
             attribute :#{context}_list, ActiveModel::Type::Value.new          
             
             def #{context}
-              _tags_for(context: :#{context})
+              _taggable_context(:#{context}).tags
             end
 
             def #{context}=(value)
-              _tags_list_update(context: :#{context}, value: value)
+              _taggable_context(:#{context}).update(value)
             end
             
             def #{context}_list
-              #{context}.to_s
+              _taggable_context(:#{context}).tags.to_s
             end
 
             def #{context}_list=(value)
-              _tags_list_update(context: :#{context}, value: value)
+              _taggable_context(:#{context}).update(value)
             end
           RUBY
         end

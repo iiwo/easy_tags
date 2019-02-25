@@ -6,6 +6,7 @@ module EasyTags
 
   autoload :Tag, 'easy_tags/tag'
   autoload :TaggableContextMethods, 'easy_tags/taggable_context_methods'
+  autoload :TaggableContext, 'easy_tags/taggable_context'
   autoload :Taggable, 'easy_tags/taggable'
   autoload :Tagging, 'easy_tags/tagging'
   autoload :TagList, 'easy_tags/tag_list'
