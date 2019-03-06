@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/5c35fe854f8cbd3f1209/maintainability)](https://codeclimate.com/github/iiwo/easy_tags/maintainability)
+
 # EasyTags
 
 Easy tagging for Rails
