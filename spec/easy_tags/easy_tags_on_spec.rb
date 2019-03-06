@@ -116,6 +116,10 @@ RSpec.describe 'easy_tags_on' do
       taggable.save!
     end
 
+    context 'return value' do
+      it { expect(taggable.public_send(:bees_list=, 'cool, angry, cool, cool')).to eq('cool,angry') }
+    end
+
     context 'no existing tags' do
       describe 'unpersisted' do
         it 'sets proper context_list value' do

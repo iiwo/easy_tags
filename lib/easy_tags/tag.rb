@@ -1,6 +1,7 @@
 module EasyTags
+  # Tag model
   class Tag < ::ActiveRecord::Base
-    self.table_name = EasyTags.configuration.tags_table
+    self.table_name = EasyTags.tags_table
 
     has_many :taggings, dependent: :destroy, class_name: '::EasyTags::Tagging'
 

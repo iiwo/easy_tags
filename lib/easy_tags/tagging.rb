@@ -1,6 +1,7 @@
 module EasyTags
+  # Tagging model
   class Tagging < ::ActiveRecord::Base
-    self.table_name = EasyTags.configuration.taggings_table
+    self.table_name = EasyTags.taggings_table
 
     DEFAULT_CONTEXT = 'tags'.freeze
 

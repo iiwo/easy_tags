@@ -1,16 +1,18 @@
 module EasyTags
-  class TagList < Array
+  # Represents a tag list
+  class TagList < SimpleDelegator
     def initialize(
         *args,
-        generator: EasyTags.configuration.generator,
-        parser: EasyTags.configuration.parser
+        generator: EasyTags.generator,
+        parser: EasyTags.parser
     )
       self.generator = generator
       self.parser = parser
+      super([])
+
       add(*args)
     end
 
-    ##
     # Add tags to the tag_list. Duplicate or blank tags will be ignored.
     #
     # Example:

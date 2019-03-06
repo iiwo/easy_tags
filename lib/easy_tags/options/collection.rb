@@ -1,14 +1,17 @@
 module EasyTags
   module Options
-    class List
+    # Represents collection of options
+    class Collection
       def initialize(options)
         @options = options
       end
 
+      # @return [Boolean]
       def valid?
         filtered_options.all? { |option| option.valid? }
       end
 
+      # @return [String]
       def filter
         filtered_options.map(&:filter)
       end

@@ -41,6 +41,7 @@
 
             def #{context}=(value)
               _taggable_context(:#{context}).update(value)
+              #{context}
             end
             
             def #{context}_list
@@ -49,6 +50,7 @@
 
             def #{context}_list=(value)
               _taggable_context(:#{context}).update(value)
+              #{context}_list
             end
           RUBY
         end

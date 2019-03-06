@@ -5,6 +5,7 @@ module EasyTags
   extend ActiveSupport::Autoload
 
   autoload :Tag, 'easy_tags/tag'
+  autoload :TaggableMethods, 'easy_tags/taggable_methods'
   autoload :TaggableContextMethods, 'easy_tags/taggable_context_methods'
   autoload :TaggableContext, 'easy_tags/taggable_context'
   autoload :Taggable, 'easy_tags/taggable'
@@ -22,11 +23,31 @@ module EasyTags
 
   module Options
     autoload :Item, 'easy_tags/options/item'
-    autoload :List, 'easy_tags/options/list'
+    autoload :Collection, 'easy_tags/options/collection'
+  end
+
+  class Configuration
+    OPTIONS = %i[
+      tags_table
+      taggings_table
+      parser
+      generator
+    ].freeze
+
+    attr_accessor(
+      *OPTIONS
+    )
+
+    def initialize
+      self.tags_table = :tags
+      self.taggings_table = :taggings
+      self.parser = Parsers::Default
+      self.generator = Generators::Default
+    end
   end
 
   class << self
-    attr_accessor :configuration
+    attr_reader :configuration
 
     def configuration
       @configuration ||= Configuration.new
@@ -35,21 +56,7 @@ module EasyTags
     def setup
       yield(configuration)
     end
-  end
 
-  class Configuration
-    attr_accessor(
-      :tags_table,
-      :taggings_table,
-      :parser,
-      :generator
-    )
-
-    def initialize
-      @tags_table = :tags
-      @taggings_table = :taggings
-      @parser = Parsers::Default
-      @generator = Generators::Default
-    end
+    delegate *Configuration::OPTIONS, to: :configuration
   end
 end

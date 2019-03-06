@@ -3,14 +3,14 @@ module Database
     ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
     ActiveRecord::Migration.verbose = false
     ActiveRecord::Schema.define do
-      create_table EasyTags.configuration.tags_table do |t|
+      create_table EasyTags.tags_table do |t|
         t.string :name, index: true
 
         t.timestamps null: false
       end
 
-      create_table EasyTags.configuration.taggings_table do |t|
-        t.references :tag, foreign_key: { to_table: EasyTags.configuration.tags_table }, null: false, index: true
+      create_table EasyTags.taggings_table do |t|
+        t.references :tag, foreign_key: { to_table: EasyTags.tags_table }, null: false, index: true
         t.references :taggable, polymorphic: true, index: true, null: false
         t.string :context, null: false, index: true
 
