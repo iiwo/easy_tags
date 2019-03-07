@@ -12,3 +12,4 @@
 .idea
 *.lock
 *.gem
+gemfiles/.bundle/
