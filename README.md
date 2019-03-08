@@ -1,4 +1,5 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5c35fe854f8cbd3f1209/maintainability)](https://codeclimate.com/github/iiwo/easy_tags/maintainability)
+[![Build Status](https://travis-ci.org/iiwo/easy_tags.svg?branch=master)](https://travis-ci.org/iiwo/easy_tags)
 
 # EasyTags
 
@@ -30,6 +31,12 @@ in your model add:
 include EasyTags::Taggable
 easy_tags_on :highlights, :birds
 easy_tags_on :bees
+```
+
+## Testing
+```
+bundle exec appraisal install
+bundle exec appraisal spec
 ```
 
 ## Development
