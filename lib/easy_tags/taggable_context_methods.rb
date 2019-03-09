@@ -21,9 +21,7 @@
               :#{context}_taggings, -> { includes(:tag).where(context: :#{context}) },
               as: :taggable,
               class_name: 'EasyTags::Tagging',
-              dependent: :destroy,
-              after_add: :after_tagging_change,
-              after_remove: :after_tagging_change
+              dependent: :destroy
             )
   
             has_many(
