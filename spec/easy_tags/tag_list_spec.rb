@@ -36,6 +36,12 @@ RSpec.describe EasyTags::TagList do
 
       it { expect(tag_list).to eq(%w[bumble busy]) }
     end
+
+    context 'with symbols' do
+      before { tag_list.add(%i[bumble busy]) }
+
+      it { expect(tag_list).to eq(%w[bumble busy]) }
+    end
   end
 
   describe '#to_s' do
