@@ -22,6 +22,7 @@ module EasyTags
   end
 
   module Options
+    autoload :Callback, 'easy_tags/options/callback'
     autoload :Item, 'easy_tags/options/item'
     autoload :Collection, 'easy_tags/options/collection'
   end

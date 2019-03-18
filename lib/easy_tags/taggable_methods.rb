@@ -17,55 +17,71 @@ module EasyTags
 
           private
 
-          attr_accessor :_taggable_contexts
+            attr_accessor :_taggable_contexts
 
-          def _taggable_contexts
-            @_taggable_contexts ||= {}
-          end
+            def _taggable_contexts
+              @_taggable_contexts ||= {}
+            end
 
-          def _update_taggings
-            self.class.tagging_contexts.each do |context|
-              context_tags = _taggable_context(context)
+            def _update_taggings
+              self.class.tagging_contexts.each do |context|
+                context_tags = _taggable_context(context)
 
-              next unless context_tags.changed?
+                next unless context_tags.changed?
 
-              context_tags.new_tags.each do |tag_name|
-                tag = Tag.find_or_create_by!(name: tag_name)
-                taggings.create!(context: context, tag: tag)
+                context_tags.new_tags.each do |tag_name|
+                  tag = Tag.find_or_create_by!(name: tag_name)
+                  taggings.create!(context: context, tag: tag)
+                end
+
+                taggings
+                  .joins(:tag)
+                  .where(context: context)
+                  .where(Tag.table_name => { name: context_tags.removed_tags })
+                  .destroy_all
               end
+            end
 
-              taggings
-                .joins(:tag)
-                .where(context: context)
-                .where(Tag.table_name => { name: context_tags.removed_tags })
-                .destroy_all
+            def _refresh_tagging
+              self.class.tagging_contexts.each do |context|
+                _taggable_context(context).refresh
+              end
+            end
+
+            def _mark_dirty(context:, taggable_context:)
+              write_attribute("#{context}_list", taggable_context.tags.to_s)
+              set_attribute_was("#{context}_list", taggable_context.persisted_tags.to_s)
+              attribute_will_change!("#{context}_list")
+            end
+
+            def _taggable_context(context)
+              _taggable_contexts[context] ||= TaggableContext.new(
+                context: context,
+                refresh_persisted_tags: -> {
+                  taggings.joins(:tag).where(context: context).pluck(:name)
+                },
+                on_change: -> (tag_context) {
+                  _mark_dirty(context: context, taggable_context: tag_context)
+                }
+              )
+            end
+
+            def _notify_tag_add(tagging)
+              self.class.tagging_callbacks[tagging.context.to_sym].select do |callback|
+                callback.type == :after_add
+              end.each do |callback|
+                callback.run(taggable: self, tagging: tagging)
+              end
+            end
+
+            def _notify_tag_remove(tagging)
+              self.class.tagging_callbacks[tagging.context.to_sym].select do |callback|
+                callback.type == :after_remove
+              end.each do |callback|
+                callback.run(taggable: self, tagging: tagging)
+              end
             end
           end
-
-          def _refresh_tagging
-            self.class.tagging_contexts.each do |context|
-              _taggable_context(context).refresh
-            end
-          end
-
-          def _mark_dirty(context:, taggable_context:)
-            write_attribute("#{context}_list", taggable_context.tags.to_s)
-            set_attribute_was("#{context}_list", taggable_context.persisted_tags.to_s)
-            attribute_will_change!("#{context}_list")
-          end
-
-          def _taggable_context(context)
-            _taggable_contexts[context] ||= TaggableContext.new(
-              context: context,
-              refresh_persisted_tags: -> {
-                taggings.joins(:tag).where(context: context).pluck(:name)
-              },
-              on_change: -> (tag_context) {
-                _mark_dirty(context: context, taggable_context: tag_context)
-              }
-            )
-          end
-        end
       end
     end
   end

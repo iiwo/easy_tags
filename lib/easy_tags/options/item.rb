@@ -8,13 +8,32 @@ module EasyTags
 
       # @return [Boolean]
       def valid?
-        /[@$"]/ !~ filter.inspect
+        /[@$"]/ !~ name.inspect
       end
 
       # @return [Symbol]
-      def filter
-        @_filter ||= @option.to_sym
+      def name
+        @_filter ||= key.to_sym
       end
+
+      def callbacks
+        return [] unless has_callbacks?
+
+        @option.values.map do |callback|
+          Callback.new(callback: callback.values.first, type: callback.keys.first)
+        end
+      end
+
+      private
+
+        def key
+          return @option.keys.first if has_callbacks?
+          @option
+        end
+
+        def has_callbacks?
+          @option.is_a?(Hash)
+        end
     end
   end
 end

@@ -5,17 +5,23 @@ module EasyTags
         []
       end
 
+      cattr_accessor :tagging_callbacks do
+        {}
+      end
+
       def easy_tags_on(*tagging_contexts_params)
         options = Options::Collection.new(tagging_contexts_params.to_a)
         raise 'invalid options' unless options.valid?
 
-        tagging_contexts.push(*options.filter)
-        tagging_contexts.uniq!
+        options.items.each do |option|
+          next if tagging_contexts.include?(option.name)
 
-        tagging_contexts.each do |context|
+          tagging_contexts.push(option.name)
+          tagging_callbacks[option.name] = option.callbacks
+
           EasyTags::TaggableContextMethods.inject(
             class_instance: self,
-            context: context
+            context: option.name
           )
         end
       end
