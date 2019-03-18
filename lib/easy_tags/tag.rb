@@ -3,7 +3,7 @@ module EasyTags
   class Tag < ::ActiveRecord::Base
     self.table_name = EasyTags.tags_table
 
-    has_many :taggings, dependent: :destroy, class_name: '::EasyTags::Tagging'
+    has_many :taggings, dependent: :destroy, class_name: '::EasyTags::Tagging', inverse_of: :tag
 
     validates_presence_of :name
     validates_uniqueness_of :name

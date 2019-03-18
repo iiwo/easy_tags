@@ -3,8 +3,8 @@ module EasyTags
   class Tagging < ::ActiveRecord::Base
     self.table_name = EasyTags.taggings_table
 
-    belongs_to :tag, class_name: '::EasyTags::Tag', optional: false
-    belongs_to :taggable, polymorphic: true, optional: false
+    belongs_to :tag, class_name: '::EasyTags::Tag', optional: false, inverse_of: :taggings
+    belongs_to :taggable, polymorphic: true, optional: false, inverse_of: :taggings
 
     validates_uniqueness_of :tag_id, scope: %i[taggable_type taggable_id context]
 
