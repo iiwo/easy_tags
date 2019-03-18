@@ -21,7 +21,7 @@ RSpec.describe 'easy_tags_on' do
       expect(taggable).to respond_to(:tags, :skills, :languages)
     end
 
-    it 'generates a tag_list accessor/setster for each tag type' do
+    it 'generates a tag_list accessor/setter for each tag type' do
       expect(taggable).to respond_to(:tags_list, :skills_list, :languages_list)
       expect(taggable).to respond_to(:tags_list=, :skills_list=, :languages_list=)
     end
@@ -66,6 +66,89 @@ RSpec.describe 'easy_tags_on' do
 
       it 'does not raise error ' do
         is_expected.to raise_error('invalid options')
+      end
+    end
+
+    context 'with callbacks' do
+      context 'after_add' do
+        context 'with symbol' do
+          before do
+            TaggableModel.tagging_contexts = []
+            TaggableModel.easy_tags_on(:bees, birds: { after_add: :add_callback })
+            taggable.birds.add('sparrow')
+          end
+
+          let(:taggable) { TaggableModel.new }
+
+          it 'triggers the callback' do
+            expect(taggable).to receive(:add_callback) do |tagging|
+              expect(tagging).to eq(EasyTags::Tagging.last)
+            end
+
+            taggable.save
+          end
+        end
+
+        context 'with proc' do
+          before do
+            TaggableModel.tagging_contexts = []
+            TaggableModel.class_eval do
+              easy_tags_on(
+                :bees,
+                birds: { after_add: -> (tagging) { add_callback(tagging) } }
+              )
+            end
+
+            taggable.birds.add('sparrow')
+          end
+
+          it 'triggers the callback' do
+            expect(taggable).to receive(:add_callback) do |tagging|
+              expect(tagging).to eq(EasyTags::Tagging.last)
+            end
+
+            taggable.save
+          end
+        end
+      end
+
+      context 'after_remove' do
+        context 'with symbol' do
+          before do
+            TaggableModel.tagging_contexts = []
+            TaggableModel.easy_tags_on(:bees, birds: { after_remove: :remove_callback })
+            taggable.update!(birds: ['sparrow'])
+            taggable.birds.remove('sparrow')
+          end
+
+          let(:taggable) { TaggableModel.new }
+
+          it 'triggers the callback' do
+            expect(taggable).to receive(:remove_callback).with(EasyTags::Tagging.last)
+
+            taggable.save
+          end
+        end
+
+        context 'with proc' do
+          before do
+            TaggableModel.tagging_contexts = []
+            TaggableModel.class_eval do
+              easy_tags_on(
+                :bees,
+                birds: { after_remove: -> (tagging) { remove_callback(tagging) } }
+              )
+            end
+            taggable.update!(birds: ['sparrow'])
+            taggable.birds.remove('sparrow')
+          end
+
+          it 'triggers the callback' do
+            expect(taggable).to receive(:remove_callback).with(EasyTags::Tagging.last)
+
+            taggable.save
+          end
+        end
       end
     end
   end

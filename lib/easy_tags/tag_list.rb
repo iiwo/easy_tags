@@ -27,6 +27,10 @@ module EasyTags
       generator.generate(self)
     end
 
+    def remove(value)
+      __getobj__.delete(value)
+    end
+
     private
 
       attr_accessor :generator, :parser

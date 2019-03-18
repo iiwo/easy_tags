@@ -36,7 +36,7 @@ easy_tags_on :bees
 ## Testing
 ```
 bundle exec appraisal install
-bundle exec appraisal spec
+bundle exec appraisal rspec
 ```
 
 ## Development

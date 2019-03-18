@@ -12,8 +12,8 @@ module EasyTags
       end
 
       # @return [String]
-      def filter
-        filtered_options.map(&:filter)
+      def items
+        filtered_options
       end
 
       private
