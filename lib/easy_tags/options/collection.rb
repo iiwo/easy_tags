@@ -3,7 +3,7 @@ module EasyTags
     # Represents collection of options
     class Collection
       def initialize(options)
-        @options = options
+        @options = options.uniq
       end
 
       # @return [Boolean]

@@ -25,11 +25,24 @@ RSpec.describe 'easy_tags_on' do
       expect(taggable).to respond_to(:tags_list, :skills_list, :languages_list)
       expect(taggable).to respond_to(:tags_list=, :skills_list=, :languages_list=)
     end
+
+    context 'multiple declarations' do
+      before do
+        TaggableModel.tagging_contexts = []
+        TaggableModel.easy_tags_on(:bees)
+        TaggableModel.easy_tags_on(:birds)
+      end
+
+      it 'does not overwrite first declaration' do
+        expect(taggable).to respond_to(:bees_list, :birds_list)
+      end
+    end
   end
 
   describe 'options processing' do
     it 'eliminates duplicate tagging contexts ' do
       TaggableModel.easy_tags_on(:skills, :skills)
+      TaggableModel.easy_tags_on(:skills)
       expect(TaggableModel.tagging_contexts.count(:skills)).to eq(1)
     end
 

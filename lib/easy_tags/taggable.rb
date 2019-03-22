@@ -14,9 +14,7 @@ module EasyTags
         raise 'invalid options' unless options.valid?
 
         options.items.each do |option|
-          next if tagging_contexts.include?(option.name)
-
-          tagging_contexts.push(option.name)
+          tagging_contexts.push(option.name) unless tagging_contexts.include?(option.name)
           tagging_callbacks[option.name] = option.callbacks
 
           EasyTags::TaggableContextMethods.inject(
