@@ -19,8 +19,8 @@ module EasyTags
       def callbacks
         return [] unless has_callbacks?
 
-        @option.values.map do |callback|
-          Callback.new(callback: callback.values.first, type: callback.keys.first)
+        @option.values.first.map do |type, callback|
+          Callback.new(callback: callback, type: type)
         end
       end
 

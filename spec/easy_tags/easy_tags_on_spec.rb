@@ -163,6 +163,31 @@ RSpec.describe 'easy_tags_on' do
           end
         end
       end
+
+      context 'multiple callbacks' do
+        before do
+          TaggableModel.tagging_contexts = []
+          TaggableModel.class_eval do
+            easy_tags_on(
+              :bees,
+              birds: { after_remove: -> (tagging) { remove_callback(tagging) },  after_add: :add_callback }
+            )
+          end
+          allow(taggable).to receive(:add_callback)
+
+          taggable.update!(birds: ['sparrow'])
+
+          taggable.birds.remove('sparrow')
+          taggable.birds.add('crow')
+        end
+
+        it 'triggers both callbacks' do
+          expect(taggable).to receive(:remove_callback)
+          expect(taggable).to receive(:add_callback)
+
+          taggable.save
+        end
+      end
     end
   end
 end
