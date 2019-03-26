@@ -24,7 +24,7 @@ module EasyTags
 
       def notify_remove
         ActiveSupport::Notifications.instrument(
-          "easy_tag.tagging_added#{taggable_type.to_s.tableize}.#{context}",
+          "easy_tag.tagging_removed.#{taggable_type.to_s.tableize}.#{context}",
           tagging: self
         )
 
