@@ -1,5 +1,4 @@
   module EasyTags
-    ##
     # Handles injecting of the dynamic context related methods
     # Example:
     #   easy_tags_on :bees

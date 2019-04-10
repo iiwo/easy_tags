@@ -6,6 +6,8 @@ module EasyTags
 
       TYPES = %i[after_add after_remove]
 
+      # @param [Proc] callback
+      # @param [Symbol] type
       def initialize(callback:, type:)
         @callback = callback
         @type = type
@@ -20,6 +22,10 @@ module EasyTags
         @type
       end
 
+      # invoke callback for a taggable object for a specific tagging
+      #
+      # @param [Object] taggable
+      # @param [Object] tagging
       def run(taggable:, tagging:)
         if @callback.is_a?(Symbol)
           taggable.send(@callback, tagging)

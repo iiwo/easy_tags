@@ -21,12 +21,15 @@ module EasyTags
       filter(names).each { |filtered_name| push(filtered_name) unless include?(filtered_name) }
     end
 
-    ##
     # Transform the tag_list into a tag string
     def to_s
       generator.generate(self)
     end
 
+    # Remove item from list
+    #
+    # Example:
+    #   tag_list.remove('Issues')
     def remove(value)
       __getobj__.delete(value)
     end

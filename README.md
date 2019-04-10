@@ -71,8 +71,14 @@ in your ActiveRecord model add:
 ```ruby
 include EasyTags::Taggable
 
-easy_tags_on :highlights, :birds
-easy_tags_on :bees
+easy_tags_on :highlights
+```
+
+with multiple tag contexts:
+```ruby
+include EasyTags::Taggable
+
+easy_tags_on :highlights, :tags, :notes
 ```
 
 ### Interface
@@ -168,7 +174,7 @@ the following relations will be auto-generated and made available for your model
 - `EasyTags::Tag` model represents a single tag name
 - `EasyTags::Taggings` represents a join table between your model and the `EasyTags::Tag` model, it also holds the tag context value
 
-find all model instances with a specific tag name:
+Find all model instances with a specific tag name:
 ```ruby
 MyModel.joins(:highlights_tags).where(tags: { name: 'My Tag' })
 ```
@@ -179,7 +185,7 @@ MyModel.includes(:highlights_tags)
 ```
 
 ##### Global relations
-upon the `EasyTags::Taggable` inclusion
+Upon the `EasyTags::Taggable` inclusion
 ```ruby
 include EasyTags::Taggable
 ```
@@ -190,7 +196,7 @@ the fallowing context independent relations will be auto-generated and made avai
 | `has_many` to `EasyTags::Taggings` relation  | has_many :taggings, as: :taggable       |
 | `has_many` to `EasyTags::Tag` relation       | has_many :base_tags, through: :taggings |
 
-you can use them for querying multiple contexts
+You can use them for querying multiple contexts
 ```ruby
 MyModel.joins(:base_tags).where(taggings: { context: %w[highlights billing_highlights] })
 ```
@@ -300,6 +306,8 @@ model.highlights_list_previous_change
 ## Configuration
 
 ```ruby
+# config/initializers/easy_tags.rb
+
 EasyTags.setup do |config|
   config.tags_table = :tags
   config.taggings_table = :taggings
@@ -308,10 +316,10 @@ EasyTags.setup do |config|
 end
 ```
 
-You can customize db table names with `tags_table` and `taggings_table` options
+You can customize db table names with `tags_table` and `taggings_table` options.
 
 You can customize the parser and the generator to use different separators, filtering or processing.
-The default parser uses comma as separator and is case sensitive
+The default parser uses comma as separator and is case sensitive.
 
 
 ## Testing
