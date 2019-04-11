@@ -1,0 +1,15 @@
+Metrics/LineLength:
+  Max: 120
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/SymbolArray:
+  Enabled: true
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
+
+AllCops:
+  Exclude:
+    - 'spec/**/*'

@@ -1,6 +1,9 @@
+# rubocop:disable Style/Documentation
 module EasyTags
   module Taggable
     module ClassMethods
+      # rubocop:enable Style/Documentation
+      #
       # Examples
       #
       #   easy_tags_on :highlights
@@ -12,9 +15,12 @@ module EasyTags
       # with callbacks:
       #
       #   easy_tags_on(
-      #     highlights: { after_add: :add_tag_callback, after_remove: -> (tagging) { puts "removed #{tagging.tag.name}" } }
+      #     highlights: {
+      #       after_add: :add_tag_callback, after_remove: ->(tagging) { puts "removed #{tagging.tag.name}" }
+      #     }
       #   )
       #
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def easy_tags_on(*tagging_contexts_params)
         cattr_accessor :tagging_contexts
         cattr_accessor :tagging_callbacks
@@ -35,6 +41,7 @@ module EasyTags
           )
         end
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     end
 
     def self.included(base)

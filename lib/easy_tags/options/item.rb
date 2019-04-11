@@ -13,12 +13,12 @@ module EasyTags
 
       # @return [Symbol]
       def name
-        @_filter ||= key.to_sym
+        @name ||= key.to_sym
       end
 
       # @return [Array<Callback>]
       def callbacks
-        return [] unless has_callbacks?
+        return [] unless callbacks?
 
         @option.values.first.map do |type, callback|
           Callback.new(callback: callback, type: type)
@@ -28,11 +28,12 @@ module EasyTags
       private
 
         def key
-          return @option.keys.first if has_callbacks?
+          return @option.keys.first if callbacks?
+
           @option
         end
 
-        def has_callbacks?
+        def callbacks?
           @option.is_a?(Hash)
         end
     end

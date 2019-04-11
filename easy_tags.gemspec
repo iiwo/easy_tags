@@ -20,14 +20,14 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'activesupport', '~> 5.0'
   spec.add_runtime_dependency 'activerecord', '~> 5.0'
+  spec.add_runtime_dependency 'activesupport', '~> 5.0'
 
+  spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'sqlite3', '~> 1.3.6'
-  spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'simplecov-console'
+  spec.add_development_dependency 'sqlite3', '~> 1.3.6'
 end

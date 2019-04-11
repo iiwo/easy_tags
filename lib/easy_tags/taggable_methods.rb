@@ -2,7 +2,9 @@ module EasyTags
   # Taggable instance methods
   module TaggableMethods
     class << self
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def inject(class_instance:)
+        # rubocop:disable Metrics/BlockLength
         class_instance.class_eval do
           has_many(
             :taggings,
@@ -72,19 +74,21 @@ module EasyTags
             def _taggable_context(context)
               _taggable_contexts[context] ||= TaggableContext.new(
                 context: context,
-                refresh_persisted_tags: -> {
+                refresh_persisted_tags: lambda {
                   taggings.joins(:tag).where(context: context).pluck(:name)
                 },
-                on_change: -> (tag_context) {
+                on_change: lambda { |tag_context|
                   _mark_dirty(context: context, taggable_context: tag_context)
                 }
               )
             end
 
             def _notify_tag_change(type:, tagging:)
-              tagging_callbacks[tagging.context.to_sym].select do |callback|
+              callbacks_for_type = tagging_callbacks[tagging.context.to_sym].select do |callback|
                 callback.type == type
-              end.each do |callback|
+              end
+
+              callbacks_for_type.each do |callback|
                 callback.run(taggable: self, tagging: tagging)
               end
             end
@@ -96,8 +100,10 @@ module EasyTags
             def _notify_tag_remove(tagging)
               _notify_tag_change(type: :after_remove, tagging: tagging)
             end
-          end
+        end
+        # rubocop:enable Metrics/BlockLength
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     end
   end
 end

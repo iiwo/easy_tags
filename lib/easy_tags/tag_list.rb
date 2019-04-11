@@ -2,9 +2,9 @@ module EasyTags
   # Represents a tag list
   class TagList < SimpleDelegator
     def initialize(
-        *args,
-        generator: EasyTags.generator,
-        parser: EasyTags.parser
+      *args,
+      generator: EasyTags.generator,
+      parser: EasyTags.parser
     )
       self.generator = generator
       self.parser = parser
