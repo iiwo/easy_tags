@@ -12,6 +12,7 @@ module EasyTags
     after_commit :notify_add, on: :create
     after_commit :notify_remove, on: :destroy
 
+    # cast object to string
     def to_s
       name
     end

@@ -16,6 +16,7 @@ module EasyTags
         @_filter ||= key.to_sym
       end
 
+      # @return [Array<Callback>]
       def callbacks
         return [] unless has_callbacks?
 

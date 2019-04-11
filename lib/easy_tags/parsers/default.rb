@@ -6,7 +6,7 @@ module EasyTags
         # Returns a new TagList using the given tag string.
         #
         # @param [String] tag_list_string
-        # @return [Array]
+        # @return [Array<String>]
         #
         # Example:
         #   EasyTags::Parsers::Default.parse('One , Two,  Three')

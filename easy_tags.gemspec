@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Iwo Dziechciarow']
   spec.email = ['iiwo@o2.pl']
 
-  spec.summary = 'rewrite of the acts-as-taggable-on for only selected features'
+  spec.summary = 'EasyTags allows you to tag a single model on several contexts'
   spec.description = 'Easy tagging for Rails'
   spec.homepage = 'https://github.com/iiwo/easy_tags'
   spec.license = 'MIT'

@@ -23,6 +23,8 @@ module EasyTags
           after_save :_update_taggings, :_refresh_tagging
           after_find :_refresh_tagging
 
+          # override ActiveRecord::Persistence#reload
+          # to refresh tags each time the model instance gets reloaded
           def reload
             _refresh_tagging
             super

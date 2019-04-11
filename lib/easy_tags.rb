@@ -27,6 +27,17 @@ module EasyTags
     autoload :Collection, 'easy_tags/options/collection'
   end
 
+  # handle lib configuration options
+  #
+  # Example
+  #
+  #  EasyTags.setup do |config|
+  #    config.tags_table = :tags
+  #    config.taggings_table = :taggings
+  #    config.parser = EasyTags::Parsers::Default
+  #    config.generator = EasyTags::Generators::Default
+  #  end
+  #
   class Configuration
     OPTIONS = %i[
       tags_table
