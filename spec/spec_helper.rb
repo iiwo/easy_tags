@@ -2,8 +2,13 @@ require 'bundler/setup'
 require 'rspec'
 require 'easy_tags'
 require 'database_cleaner'
+require 'simplecov'
+require 'simplecov-console'
 
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+
+SimpleCov.formatter = SimpleCov::Formatter::Console
+SimpleCov.start
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
