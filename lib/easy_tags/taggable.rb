@@ -1,10 +1,10 @@
 module EasyTags
   module Taggable
     module ClassMethods
-      attr_accessor :tagging_contexts
-      attr_accessor :tagging_callbacks
-
       def easy_tags_on(*tagging_contexts_params)
+        cattr_accessor :tagging_contexts
+        cattr_accessor :tagging_callbacks
+
         options = Options::Collection.new(tagging_contexts_params.to_a)
         raise 'invalid options' unless options.valid?
 

@@ -4,26 +4,40 @@ RSpec.describe 'easy_tags_on' do
   subject(:taggable) { TaggableModel.create }
 
   describe 'method generation' do
-    before do
+    before(:all) do
       TaggableModel.tagging_contexts = []
       TaggableModel.easy_tags_on(:tags, :languages, :skills, :needs, :offerings)
     end
 
-    it 'creates a class attribute for tag types' do
-      expect(taggable.class).to respond_to(:tagging_contexts)
+    shared_examples 'generates context methods' do
+      it 'creates a class attribute for tag types' do
+        expect(taggable.class).to respond_to(:tagging_contexts)
+      end
+
+      it 'has all tag types' do
+        expect(taggable.class.tagging_contexts).to eq([:tags, :languages, :skills, :needs, :offerings])
+      end
+
+      it 'generates an association for each tag type' do
+        expect(taggable).to respond_to(:tags, :skills, :languages)
+      end
+
+      it 'generates a tag_list accessor/setter for each tag type' do
+        expect(taggable).to respond_to(:tags_list, :skills_list, :languages_list)
+        expect(taggable).to respond_to(:tags_list=, :skills_list=, :languages_list=)
+      end
     end
 
-    it 'has all tag types' do
-      expect(taggable.class.tagging_contexts).to eq([:tags, :languages, :skills, :needs, :offerings])
-    end
+    it_behaves_like 'generates context methods'
 
-    it 'generates an association for each tag type' do
-      expect(taggable).to respond_to(:tags, :skills, :languages)
-    end
+    context 'subclasses' do
+      before do
+        class SubclassTaggableModel < TaggableModel; end
+      end
 
-    it 'generates a tag_list accessor/setter for each tag type' do
-      expect(taggable).to respond_to(:tags_list, :skills_list, :languages_list)
-      expect(taggable).to respond_to(:tags_list=, :skills_list=, :languages_list=)
+      subject(:taggable) { SubclassTaggableModel.create }
+
+      it_behaves_like 'generates context methods'
     end
 
     context 'multiple declarations' do

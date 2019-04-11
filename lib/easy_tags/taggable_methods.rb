@@ -37,7 +37,7 @@ module EasyTags
             end
 
             def _update_taggings
-              self.class.tagging_contexts.each do |context|
+              tagging_contexts.each do |context|
                 context_tags = _taggable_context(context)
 
                 next unless context_tags.changed?
@@ -56,7 +56,7 @@ module EasyTags
             end
 
             def _refresh_tagging
-              self.class.tagging_contexts.each do |context|
+              tagging_contexts.each do |context|
                 _taggable_context(context).refresh
               end
             end
@@ -80,7 +80,7 @@ module EasyTags
             end
 
             def _notify_tag_change(type:, tagging:)
-              self.class.tagging_callbacks[tagging.context.to_sym].select do |callback|
+              tagging_callbacks[tagging.context.to_sym].select do |callback|
                 callback.type == type
               end.each do |callback|
                 callback.run(taggable: self, tagging: tagging)
