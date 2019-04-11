@@ -8,7 +8,7 @@ module EasyTags
 
       # @return [Boolean]
       def valid?
-        filtered_options.all? { |option| option.valid? }
+        filtered_options.all?(&:valid?)
       end
 
       # @return [String]
@@ -19,7 +19,7 @@ module EasyTags
       private
 
         def filtered_options
-          @_filtered_options ||= @options.to_a.flatten.compact.map do |raw_option|
+          @filtered_options ||= @options.to_a.flatten.compact.map do |raw_option|
             Item.new(raw_option)
           end
         end

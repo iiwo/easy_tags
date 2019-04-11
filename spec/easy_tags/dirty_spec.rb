@@ -11,7 +11,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
       end
 
       it 'shows changes of dirty object' do
-        expect(taggable.changes).to eq({ 'tags_list' => ['awesome,epic', 'one']})
+        expect(taggable.changes).to eq('tags_list' => ['awesome,epic', 'one'])
       end
 
       context 'freshly initialized dirty object' do
@@ -21,7 +21,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
           reloaded_taggable.tags_list = 'one'
         end
 
-        it { expect(taggable.changes).to eq({ 'tags_list' => ['awesome,epic', 'one']}) }
+        it { expect(taggable.changes).to eq('tags_list' => ['awesome,epic', 'one']) }
       end
 
       # TODO: will_save_change_to_tags_list? spec
@@ -37,7 +37,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
       context 'when tag order changed' do
         it 'does not mark attribute' do
           taggable = TaggableModel.create(tags_list: %w[d c b a])
-          taggable.tags_list =  'a,b,c,d'
+          taggable.tags_list = 'a,b,c,d'
           expect(taggable.tags_list_changed?).to be_falsy
         end
       end

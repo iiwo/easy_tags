@@ -15,7 +15,7 @@ RSpec.describe 'easy_tags_on' do
       end
 
       it 'has all tag types' do
-        expect(taggable.class.tagging_contexts).to eq([:tags, :languages, :skills, :needs, :offerings])
+        expect(taggable.class.tagging_contexts).to eq(%i[tags languages skills needs offerings])
       end
 
       it 'generates an association for each tag type' do
@@ -122,7 +122,7 @@ RSpec.describe 'easy_tags_on' do
             TaggableModel.class_eval do
               easy_tags_on(
                 :bees,
-                birds: { after_add: -> (tagging) { add_callback(tagging) } }
+                birds: { after_add: ->(tagging) { add_callback(tagging) } }
               )
             end
 
@@ -163,7 +163,7 @@ RSpec.describe 'easy_tags_on' do
             TaggableModel.class_eval do
               easy_tags_on(
                 :bees,
-                birds: { after_remove: -> (tagging) { remove_callback(tagging) } }
+                birds: { after_remove: ->(tagging) { remove_callback(tagging) } }
               )
             end
             taggable.update!(birds: ['sparrow'])
@@ -184,7 +184,7 @@ RSpec.describe 'easy_tags_on' do
           TaggableModel.class_eval do
             easy_tags_on(
               :bees,
-              birds: { after_remove: -> (tagging) { remove_callback(tagging) },  after_add: :add_callback }
+              birds: { after_remove: ->(tagging) { remove_callback(tagging) }, after_add: :add_callback }
             )
           end
           allow(taggable).to receive(:add_callback)

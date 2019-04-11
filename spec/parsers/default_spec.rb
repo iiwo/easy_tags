@@ -7,7 +7,7 @@ RSpec.describe EasyTags::Parsers::Default do
     end
 
     it 'return array of values split by delimiter' do
-      expect(described_class.parse('One,Two,Three')).to eq(['One', 'Two', 'Three'])
+      expect(described_class.parse('One,Two,Three')).to eq(%w[One Two Three])
     end
 
     context 'inconsistent spacing' do

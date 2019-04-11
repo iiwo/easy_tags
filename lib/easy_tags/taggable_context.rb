@@ -1,4 +1,5 @@
 module EasyTags
+  # Handles tag context manipulation
   class TaggableContext
     # @param [String, Symbol] context
     # @param [Proc] refresh_persisted_tags
@@ -42,6 +43,7 @@ module EasyTags
       persisted_tags - tags
     end
 
+    # clear memoized info and force a refresh
     def refresh
       @tags = nil
       @persisted_tags = nil

@@ -1,6 +1,7 @@
 require 'active_support/dependencies/autoload'
 require 'active_record'
 
+# rubocop:disable Style/Documentation
 module EasyTags
   extend ActiveSupport::Autoload
 
@@ -26,6 +27,7 @@ module EasyTags
     autoload :Item, 'easy_tags/options/item'
     autoload :Collection, 'easy_tags/options/collection'
   end
+  # rubocop:enable Style/Documentation
 
   # handle lib configuration options
   #
@@ -59,8 +61,6 @@ module EasyTags
   end
 
   class << self
-    attr_reader :configuration
-
     def configuration
       @configuration ||= Configuration.new
     end
@@ -69,6 +69,6 @@ module EasyTags
       yield(configuration)
     end
 
-    delegate *Configuration::OPTIONS, to: :configuration
+    delegate(*Configuration::OPTIONS, to: :configuration)
   end
 end

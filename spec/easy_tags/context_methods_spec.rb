@@ -112,7 +112,7 @@ RSpec.describe 'context methods' do
 
     context 'no existing tags' do
       before do
-        taggable.bees = %w[bumble, busy]
+        taggable.bees = %w[bumble busy]
         taggable.save!
       end
 
@@ -124,7 +124,7 @@ RSpec.describe 'context methods' do
         taggable.bees = %w[cool angry]
         taggable.reload
 
-        taggable.bees = %w[bumble, busy]
+        taggable.bees = %w[bumble busy]
         taggable.save!
       end
 

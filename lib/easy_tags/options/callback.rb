@@ -4,7 +4,7 @@ module EasyTags
     class Callback
       attr_reader :context
 
-      TYPES = %i[after_add after_remove]
+      TYPES = %i[after_add after_remove].freeze
 
       # @param [Proc] callback
       # @param [Symbol] type
@@ -12,15 +12,11 @@ module EasyTags
         @callback = callback
         @type = type
 
-        unless TYPES.include?(type)
-          raise "unknown callback type - must be one of #{TYPES}"
-        end
+        raise "unknown callback type - must be one of #{TYPES}" unless TYPES.include?(type)
       end
 
       # @return [String]
-      def type
-        @type
-      end
+      attr_reader :type
 
       # invoke callback for a taggable object for a specific tagging
       #
