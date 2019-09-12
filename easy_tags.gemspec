@@ -2,6 +2,7 @@ lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'easy_tags/version'
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name = 'easy_tags'
   spec.version = EasyTags::VERSION
@@ -12,6 +13,12 @@ Gem::Specification.new do |spec|
   spec.description = 'Easy tagging for Rails'
   spec.homepage = 'https://github.com/iiwo/easy_tags'
   spec.license = 'MIT'
+  spec.metadata    = {
+    'homepage_uri' => 'https://github.com/iiwo/easy_tags',
+    'changelog_uri' => 'https://github.com/iiwo/easy_tags/blob/master/CHANGELOG.md',
+    'source_code_uri' => 'https://github.com/iiwo/easy_tags',
+    'bug_tracker_uri' => 'https://github.com/iiwo/easy_tags/issues'
+  }
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -31,3 +38,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov-console'
   spec.add_development_dependency 'sqlite3', '~> 1.3.6'
 end
+# rubocop:enable Metrics/BlockLength
