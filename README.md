@@ -90,12 +90,13 @@ easy_tags_on :highlights
 
 the following methods will be auto-generated and made available for your model instance (`highlights` being an example context name):
 
-| description                        | method                    |
-|------------------------------------|---------------------------|
-| set tags using string of tag names | `highlights_list=(value)` |
-| get string of tag names            | `highlights_list`         |
-| set tags with array of tag names   | `highlights=(value)`      |
-| get array of tag names             | `highlights`              |
+| description                        | method                           |
+|------------------------------------|----------------------------------|
+| set tags using string of tag names | `highlights_list=(value)`        |
+| get string of tag names            | `highlights_list`                |
+| get string of persisted tag names  | `highlights_list_persisted`      |
+| set tags with array of tag names   | `highlights=(value)`             |
+| get array of tag names             | `highlights`                     |
 
 - the String accessor is helpful when working with client side tagging UI solutions such as ie. [select2](https://select2.org/tagging)
 - the Array accessor gives you convenient array item manipulation

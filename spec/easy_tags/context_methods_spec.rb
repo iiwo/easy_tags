@@ -32,6 +32,18 @@ RSpec.describe 'context methods' do
     end
   end
 
+  describe '#context_list_persisted' do
+    before do
+      taggable.bees_list = 'bumble, busy'
+      taggable.save!
+      taggable.bees_list = 'cool, angry'
+    end
+
+    it 'returns persisted tags string' do
+      expect(taggable.bees_list_persisted).to eq('bumble,busy')
+    end
+  end
+
   shared_examples 'a proper assignment' do
     describe 'unpersisted' do
       it 'sets proper context_list value' do

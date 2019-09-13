@@ -49,6 +49,10 @@ module EasyTags
             _taggable_context(:#{context}).update(value)
             #{context}_list
           end
+
+          def #{context}_list_persisted
+            _taggable_context(:#{context}).persisted_tags.to_s
+          end
         RUBY
       end
     end
