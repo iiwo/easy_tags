@@ -69,9 +69,7 @@ module EasyTags
       end
     end
 
-    def ==(other)
-      to_a == other.to_a
-    end
+    delegate :==, :<=>, :to_s, :inspect, :hash, to: :tags
 
     private
 
