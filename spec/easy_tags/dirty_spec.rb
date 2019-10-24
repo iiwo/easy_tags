@@ -112,6 +112,48 @@ RSpec.describe 'Dirty behavior of taggable objects' do
 
         it_behaves_like 'implements dirty when attributes do not change'
       end
+
+      context '#add' do
+        before do
+          expect(taggable.changes).to be_empty
+          taggable.tags.add('one')
+        end
+
+        it_behaves_like 'implements dirty when attribute changes' do
+          let(:changes_hash) { { 'tags_list' => ['awesome,epic', 'awesome,epic,one'] } }
+          let(:changes_array) { ['awesome,epic', 'awesome,epic,one'] }
+          let(:previous_value) { 'awesome,epic' }
+        end
+      end
+
+      context '#remove' do
+        before do
+          expect(taggable.changes).to be_empty
+          taggable.tags.remove('awesome')
+        end
+
+        it_behaves_like 'implements dirty when attribute changes' do
+          let(:changes_hash) { { 'tags_list' => ['awesome,epic', 'epic'] } }
+          let(:changes_array) { ['awesome,epic', 'epic'] }
+          let(:previous_value) { 'awesome,epic' }
+        end
+      end
+
+      context 'multiple #add/#remove changes' do
+        before do
+          expect(taggable.changes).to be_empty
+          taggable.tags.add('one')
+          taggable.tags.add('two')
+          taggable.tags.add('three')
+          taggable.tags.remove('two')
+        end
+
+        it_behaves_like 'implements dirty when attribute changes' do
+          let(:changes_hash) { { 'tags_list' => ['awesome,epic', 'awesome,epic,one,three'] } }
+          let(:changes_array) { ['awesome,epic', 'awesome,epic,one,three'] }
+          let(:previous_value) { 'awesome,epic' }
+        end
+      end
     end
   end
 end
