@@ -30,7 +30,7 @@ module EasyTags
     def update(value)
       @tags = TagList.new(value)
 
-      on_change.call(self) if changed?
+      notify_change
     end
 
     # @return [TagList]
@@ -49,8 +49,46 @@ module EasyTags
       @persisted_tags = nil
     end
 
+    # Add tags to the tag_list. Duplicate or blank tags will be ignored.
+    #
+    # Example:
+    #   tag_list.add('Fun', 'Happy')
+    def add(*names)
+      tags.add(*names).tap do
+        notify_change
+      end
+    end
+
+    # Remove item from list
+    #
+    # Example:
+    #   tag_list.remove('Issues')
+    def remove(value)
+      tags.remove(value).tap do
+        notify_change
+      end
+    end
+
+    def ==(other)
+      to_a == other.to_a
+    end
+
     private
 
       attr_accessor :context, :refresh_persisted_tags, :on_change
+
+      def respond_to_missing?(name, _include_private = false)
+        tags.respond_to?(name)
+      end
+
+      def method_missing(name, *args, &block)
+        return super unless respond_to_missing?(name)
+
+        tags.send(name, *args, &block)
+      end
+
+      def notify_change
+        on_change.call(self) if changed?
+      end
   end
 end

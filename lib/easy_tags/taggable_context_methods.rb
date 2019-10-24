@@ -33,7 +33,7 @@ module EasyTags
           attribute :#{context}_list, ActiveModel::Type::Value.new
 
           def #{context}
-            _taggable_context(:#{context}).tags
+            _taggable_context(:#{context})
           end
 
           def #{context}=(value)
