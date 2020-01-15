@@ -5,6 +5,7 @@ require 'active_record'
 module EasyTags
   extend ActiveSupport::Autoload
 
+  autoload :DirtyMethods, 'easy_tags/dirty_methods'
   autoload :Tag, 'easy_tags/tag'
   autoload :TaggableMethods, 'easy_tags/taggable_methods'
   autoload :TaggableContextMethods, 'easy_tags/taggable_context_methods'
