@@ -65,11 +65,7 @@ module EasyTags
               end
             end
 
-            def _mark_dirty(context:, taggable_context:)
-              write_attribute("#{context}_list", taggable_context.tags.to_s)
-              set_attribute_was("#{context}_list", taggable_context.persisted_tags.to_s)
-              attribute_will_change!("#{context}_list")
-            end
+            include DirtyMethods
 
             def _taggable_context(context)
               _taggable_contexts[context] ||= TaggableContext.new(
