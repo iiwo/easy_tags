@@ -2,11 +2,11 @@ module EasyTags
   # Handles tag context manipulation
   class TaggableContext
     # @param [String, Symbol] context
-    # @param [Proc] refresh_persisted_tags
+    # @param [ActiveRecord::Relation] tags_association
     # @param [Proc] on_change
-    def initialize(context:, refresh_persisted_tags:, on_change:)
+    def initialize(context:, tags_association:, on_change:)
       self.context = context
-      self.refresh_persisted_tags = refresh_persisted_tags
+      self.tags_association = tags_association
       self.on_change = on_change
     end
 
@@ -22,7 +22,7 @@ module EasyTags
 
     # @return [TagList]
     def persisted_tags
-      @persisted_tags ||= TagList.new(refresh_persisted_tags.call)
+      @persisted_tags ||= preloaded_persisted_tags
     end
 
     # @param [String, Symbol] value
@@ -73,7 +73,7 @@ module EasyTags
 
     private
 
-      attr_accessor :context, :refresh_persisted_tags, :on_change
+      attr_accessor :context, :tags_association, :on_change
 
       def respond_to_missing?(name, _include_private = false)
         tags.respond_to?(name)
@@ -87,6 +87,13 @@ module EasyTags
 
       def notify_change
         on_change.call(self) if changed?
+      end
+
+      def preloaded_persisted_tags
+        return TagList.new(tags_association.reload.map(&:name)) if @preloaded
+
+        @preloaded = true
+        TagList.new(tags_association.map(&:name))
       end
   end
 end
