@@ -14,14 +14,6 @@ module EasyTags
             inverse_of: :taggable
           )
 
-          has_many(
-            :base_tags,
-            through: :taggings,
-            source: :tag,
-            class_name: '::EasyTags::Tag',
-            inverse_of: :tag
-          )
-
           after_save :_update_taggings, :_refresh_tagging
           after_find :_refresh_tagging
 
