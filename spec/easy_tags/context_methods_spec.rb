@@ -32,6 +32,27 @@ RSpec.describe 'context methods' do
     end
   end
 
+  describe '#context_tags' do
+    describe 'eager loading' do
+      subject do
+        TaggableModel.includes(:bees_tags).map do |tagabble|
+          tagabble.bees.to_s
+        end
+      end
+
+      before do
+        10.times do
+          taggable = TaggableModel.create
+          create_tag_for(taggable: taggable, tag_name: 'bumble')
+        end
+      end
+
+      it 'preloads tags' do
+        expect { subject }.to make_database_queries(count: 2..3) # 5.1 only makes 2 queries
+      end
+    end
+  end
+
   describe '#context_list_persisted' do
     before do
       taggable.bees_list = 'bumble, busy'

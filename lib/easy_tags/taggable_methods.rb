@@ -62,9 +62,7 @@ module EasyTags
             def _taggable_context(context)
               _taggable_contexts[context] ||= TaggableContext.new(
                 context: context,
-                refresh_persisted_tags: lambda {
-                  taggings.joins(:tag).where(context: context).pluck(:name)
-                },
+                tags_association: public_send("#{context}_tags"),
                 on_change: lambda { |tag_context|
                   _mark_dirty(context: context, taggable_context: tag_context)
                 }
