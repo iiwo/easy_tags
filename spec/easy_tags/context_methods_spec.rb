@@ -51,6 +51,17 @@ RSpec.describe 'context methods' do
         expect { subject }.to make_database_queries(count: 2..3) # 5.1 only makes 2 queries
       end
     end
+
+    describe 'association cache' do
+      before do
+        taggable.bees_list = 'bumble, busy'
+        taggable.save!
+      end
+
+      it 'resets association cache' do
+        expect(taggable.bees_tags.map(&:to_s)).to eq(%w[bumble busy])
+      end
+    end
   end
 
   describe '#context_list_persisted' do
