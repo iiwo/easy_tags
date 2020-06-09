@@ -47,6 +47,7 @@ module EasyTags
     def refresh
       @tags = nil
       @persisted_tags = nil
+      tags_association.reset
     end
 
     # Add tags to the tag_list. Duplicate or blank tags will be ignored.
@@ -90,9 +91,6 @@ module EasyTags
       end
 
       def preloaded_persisted_tags
-        return TagList.new(tags_association.reload.map(&:name)) if @preloaded
-
-        @preloaded = true
         TagList.new(tags_association.map(&:name))
       end
   end
