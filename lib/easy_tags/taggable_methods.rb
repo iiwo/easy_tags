@@ -19,7 +19,7 @@ module EasyTags
 
           # override ActiveRecord::Persistence#reload
           # to refresh tags each time the model instance gets reloaded
-          def reload
+          def reload(*args)
             _refresh_tagging
             super
           end
