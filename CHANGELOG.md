@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.6] - 2022-01-21
+### Fixed
+- Fixed bug with reload method arguments forwarding. [Issue #36](https://github.com/iiwo/easy_tags/issues/36)
+
 ## [0.2.5] - 2020-06-09
 ### Fixed
 - Added association cache invalidation after tag changes are persisted
@@ -34,7 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2019-07-15
 Initial release
 
-[Unreleased]: https://github.com/iiwo/easy_tagscompare/v0.2.5...HEAD
+[Unreleased]: https://github.com/iiwo/easy_tagscompare/v0.2.6...HEAD
+[0.2.6]: https://github.com/iiwo/easy_tags/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/iiwo/easy_tags/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/iiwo/easy_tags/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/iiwo/easy_tags/compare/v0.2.2...v0.2.3
