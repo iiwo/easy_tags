@@ -68,7 +68,7 @@ RSpec.describe 'easy_tags_on' do
       end
 
       it 'does not raise error ' do
-        is_expected.to_not raise_error
+        expect(&subject).to_not raise_error
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe 'easy_tags_on' do
       end
 
       it 'does not raise error ' do
-        is_expected.to_not raise_error
+        expect(&subject).to_not raise_error
       end
     end
 
@@ -91,8 +91,8 @@ RSpec.describe 'easy_tags_on' do
         end
       end
 
-      it 'does not raise error ' do
-        is_expected.to raise_error('invalid options')
+      it 'raises an error' do
+        expect(&subject).to raise_error('invalid options')
       end
     end
 
