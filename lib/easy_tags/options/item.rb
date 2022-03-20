@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EasyTags
   module Options
     # Represents a single option item

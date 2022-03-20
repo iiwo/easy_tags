@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EasyTags
   module Generators
     # Default generator for [Array] -> [String] conversion

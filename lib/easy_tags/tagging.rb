@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EasyTags
   # Tagging model
   class Tagging < ::ActiveRecord::Base

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Database
   def self.prepare
     ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')

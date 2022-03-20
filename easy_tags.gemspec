@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'easy_tags/version'
@@ -17,7 +19,8 @@ Gem::Specification.new do |spec|
     'homepage_uri' => 'https://github.com/iiwo/easy_tags',
     'changelog_uri' => 'https://github.com/iiwo/easy_tags/blob/master/CHANGELOG.md',
     'source_code_uri' => 'https://github.com/iiwo/easy_tags',
-    'bug_tracker_uri' => 'https://github.com/iiwo/easy_tags/issues'
+    'bug_tracker_uri' => 'https://github.com/iiwo/easy_tags/issues',
+    'rubygems_mfa_required' => 'true'
   }
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
