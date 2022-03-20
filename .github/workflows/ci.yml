@@ -1,11 +1,7 @@
 # .github/workflows/ci.yml
 name: CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ '**' ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -52,12 +48,19 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: false
+          bundler-cache: true
 
       - name: Bundle install
         run: |
           bundle config set gemfile "${GITHUB_WORKSPACE}/gemfiles/${{ matrix.gemfile }}.gemfile"
           bundle install --jobs 4 --retry 3
+
       - name: Run tests
-        run: |
-          bundle exec rspec
+        run: bundle exec rspec
+
+      - name: Report to Code Climate
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: c7f705db7f3e2658ca529a196cd65b724f6b674a7ed6ac2e01928135babdac35
+        with:
+          coverageCommand: bundle exec rspec # TODO: this should not be needed, but can't make it work

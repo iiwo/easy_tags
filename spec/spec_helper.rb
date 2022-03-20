@@ -3,12 +3,10 @@ require 'rspec'
 require 'easy_tags'
 require 'database_cleaner'
 require 'simplecov'
-require 'simplecov-console'
 require 'db-query-matchers'
 
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
-SimpleCov.formatter = SimpleCov::Formatter::Console
 SimpleCov.start
 
 RSpec.configure do |config|
