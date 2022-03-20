@@ -1,5 +1,5 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5c35fe854f8cbd3f1209/maintainability)](https://codeclimate.com/github/iiwo/easy_tags/maintainability)
-[![Build Status](https://travis-ci.org/iiwo/easy_tags.svg?branch=master)](https://travis-ci.org/iiwo/easy_tags)
+[![CI Status](https://github.com/iiwo/easy_tags/workflows/CI/badge.svg?branch=master)](https://github.com/iiwo/easy_tags/actions?query=workflow%3ACI+branch%3Amaster)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5c35fe854f8cbd3f1209/test_coverage)](https://codeclimate.com/github/iiwo/easy_tags/test_coverage)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
