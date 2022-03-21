@@ -2,6 +2,9 @@ require: rubocop-rspec
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - gemfiles/**/*
+    - vendor/bundle/**/*
 
 Layout/IndentationConsistency:
   EnforcedStyle: indented_internal_methods
@@ -28,5 +31,5 @@ RSpec/MessageSpies:
 
 Metrics/BlockLength:
   Exclude:
-    - 'Rakefile'
-    - 'spec/**/*.rb'
+    - Rakefile
+    - spec/**/*.rb

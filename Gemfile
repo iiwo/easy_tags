@@ -9,6 +9,7 @@ gem 'database_cleaner'
 gem 'db-query-matchers'
 gem 'rspec'
 gem 'rspec-rails'
+gem 'rubocop', require: false
 gem 'rubocop-rspec', require: false
 gem 'simplecov'
 gem 'simplecov-console'
