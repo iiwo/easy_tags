@@ -1,5 +1,6 @@
+require: rubocop-rspec
+
 AllCops:
-  TargetRubyVersion: 2.7
   NewCops: enable
 
 Layout/IndentationConsistency:
@@ -15,6 +16,15 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LineLength:
   Max: 120
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:

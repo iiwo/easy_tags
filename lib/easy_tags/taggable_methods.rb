@@ -4,7 +4,7 @@ module EasyTags
   # Taggable instance methods
   module TaggableMethods
     class << self
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def inject(class_instance:)
         # rubocop:disable Metrics/BlockLength
         class_instance.class_eval do
@@ -91,7 +91,7 @@ module EasyTags
         end
         # rubocop:enable Metrics/BlockLength
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     end
   end
 end

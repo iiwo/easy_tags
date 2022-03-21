@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Database
-  def self.prepare
+  def self.prepare # rubocop:disable Metrics/MethodLength
     ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
     ActiveRecord::Migration.verbose = false
     ActiveRecord::Schema.define do
