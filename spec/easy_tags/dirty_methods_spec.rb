@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe 'Dirty behavior of taggable objects' do
+RSpec.describe EasyTags::DirtyMethods do
   let!(:taggable) { TaggableModel.create!(tags_list: 'awesome, epic').reload }
 
   shared_examples 'implements dirty when attribute changes' do
@@ -16,7 +18,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
       expect(taggable.tags_list_change).to eq(changes_array)
     end
 
-    context 'after save' do
+    describe 'after save' do
       let(:taggable) { TaggableModel.create!(tags_list: 'awesome, epic') }
 
       before do
@@ -31,7 +33,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
 
   shared_examples_for 'implements dirty when attributes do not change' do
     it 'is not flagged as changed' do
-      expect(taggable.tags_list_changed?).to be_falsy
+      expect(taggable).not_to be_tags_list_changed
     end
 
     it 'does not show any changes to the taggable item' do
@@ -40,7 +42,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
   end
 
   context 'when tags_list string' do
-    context 'changed' do
+    context 'when changed' do
       before do
         expect(taggable.changes).to be_empty
         taggable.tags_list = 'one'
@@ -52,7 +54,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
         let(:previous_value) { 'awesome,epic' }
       end
 
-      context 'freshly initialized dirty object' do
+      context 'with freshly initialized dirty object' do
         let(:reloaded_taggable) { TaggableModel.find(taggable.id) }
 
         before do
@@ -66,12 +68,12 @@ RSpec.describe 'Dirty behavior of taggable objects' do
         it 'does not mark attribute' do
           taggable = TaggableModel.create(tags_list: %w[d c b a])
           taggable.tags_list = 'a,b,c,d'
-          expect(taggable.tags_list_changed?).to be_falsy
+          expect(taggable).not_to be_tags_list_changed
         end
       end
     end
 
-    context 'did not change' do
+    context 'when did not change' do
       before do
         taggable.tags_list = 'awesome, epic'
       end
@@ -81,7 +83,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
   end
 
   context 'when tags array' do
-    context 'changed' do
+    context 'when changed' do
       before do
         expect(taggable.changes).to be_empty
         taggable.tags = ['one']
@@ -94,7 +96,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
       end
     end
 
-    context 'did not change' do
+    context 'when did not change' do
       before do
         taggable.tags = %w[awesome epic]
       end
@@ -102,7 +104,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
       it_behaves_like 'implements dirty when attributes do not change'
     end
 
-    context '#add' do
+    describe '#add' do
       before do
         expect(taggable.changes).to be_empty
         taggable.tags.add('one')
@@ -115,7 +117,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
       end
     end
 
-    context '#remove' do
+    describe '#remove' do
       before do
         expect(taggable.changes).to be_empty
         taggable.tags.remove('awesome')
@@ -128,7 +130,7 @@ RSpec.describe 'Dirty behavior of taggable objects' do
       end
     end
 
-    context 'multiple #add/#remove changes' do
+    context 'when multiple #add/#remove changes' do
       before do
         expect(taggable.changes).to be_empty
         taggable.tags.add('one')

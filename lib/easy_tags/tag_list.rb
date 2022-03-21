@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EasyTags
   # Represents a tag list
   class TagList < SimpleDelegator

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe 'context methods' do
+RSpec.describe EasyTags::TaggableContextMethods do
   subject(:taggable) { TaggableModel.create }
 
   def create_tag_for(taggable:, tag_name:, context: 'bees')
@@ -34,12 +36,6 @@ RSpec.describe 'context methods' do
 
   describe '#context_tags' do
     describe 'eager loading' do
-      subject do
-        TaggableModel.includes(:bees_tags).map do |tagabble|
-          tagabble.bees.to_s
-        end
-      end
-
       before do
         10.times do
           taggable = TaggableModel.create
@@ -48,7 +44,11 @@ RSpec.describe 'context methods' do
       end
 
       it 'preloads tags' do
-        expect { subject }.to make_database_queries(count: 2..3) # 5.1 only makes 2 queries
+        expect do
+          TaggableModel.includes(:bees_tags).map do |tagabble|
+            tagabble.bees.to_s
+          end
+        end.to make_database_queries(count: 2..3) # 5.1 only makes 2 queries
       end
     end
 
@@ -101,13 +101,13 @@ RSpec.describe 'context methods' do
   end
 
   describe '#context_list=' do
-    context 'return value' do
+    context 'with duplicates' do
       it 'removes duplicates' do
         expect(taggable.public_send(:bees_list=, 'cool, angry, cool, cool')).to eq('cool,angry')
       end
     end
 
-    context 'no existing tags' do
+    context 'with no existing tags' do
       before do
         taggable.bees_list = 'bumble, busy'
         taggable.save!
@@ -128,7 +128,7 @@ RSpec.describe 'context methods' do
       it_behaves_like 'a proper assignment'
     end
 
-    context 'removing tags' do
+    context 'when removing tags' do
       subject(:taggable) { TaggableModel.create(bees: 'bumble,busy') }
 
       before do
@@ -148,13 +148,13 @@ RSpec.describe 'context methods' do
   end
 
   describe '#context=' do
-    context 'return value' do
+    context 'with duplicates' do
       it 'removes duplicates' do
         expect(taggable.public_send(:bees=, %w[cool angry cool cool])).to eq(%w[cool angry])
       end
     end
 
-    context 'no existing tags' do
+    context 'with no existing tags' do
       before do
         taggable.bees = %w[bumble busy]
         taggable.save!
@@ -175,7 +175,7 @@ RSpec.describe 'context methods' do
       it_behaves_like 'a proper assignment'
     end
 
-    context 'removing tags' do
+    context 'when removing tags' do
       subject(:taggable) { TaggableModel.create(bees: 'bumble,busy') }
 
       before do

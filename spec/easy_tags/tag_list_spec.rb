@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe EasyTags::TagList do
-  let(:tag_list) { EasyTags::TagList.new(%w[bumble busy]) }
+  let(:tag_list) { described_class.new(%w[bumble busy]) }
 
   it { expect(tag_list).to include('bumble', 'busy') }
 
   context 'when tag list given' do
-    let(:tag_list) { EasyTags::TagList.new('bumble,busy') }
+    let(:tag_list) { described_class.new('bumble,busy') }
 
     it { expect(tag_list).to include('bumble', 'busy') }
   end
@@ -25,7 +27,8 @@ RSpec.describe EasyTags::TagList do
     end
 
     context 'with another tag list' do
-      let(:other_tag_list) { EasyTags::TagList.new(%w[cool fast]) }
+      let(:other_tag_list) { described_class.new(%w[cool fast]) }
+
       before { tag_list.add(other_tag_list) }
 
       it { expect(tag_list).to include('bumble', 'busy', 'cool', 'fast') }

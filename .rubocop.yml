@@ -1,15 +1,35 @@
-Metrics/LineLength:
-  Max: 120
-
-Style/StringLiterals:
-  EnforcedStyle: single_quotes
-
-Style/SymbolArray:
-  Enabled: true
-
-Layout/IndentationConsistency:
-  EnforcedStyle: rails
+require: rubocop-rspec
 
 AllCops:
+  NewCops: enable
   Exclude:
-    - 'spec/**/*'
+    - gemfiles/**/*
+    - vendor/bundle/**/*
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - Rakefile
+    - spec/**/*.rb

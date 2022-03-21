@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe EasyTags::Parsers::Default do
@@ -10,7 +12,7 @@ RSpec.describe EasyTags::Parsers::Default do
       expect(described_class.parse('One,Two,Three')).to eq(%w[One Two Three])
     end
 
-    context 'inconsistent spacing' do
+    context 'with inconsistent spacing' do
       it 'trims spaces on tags' do
         expect(described_class.parse('One , Two,  Three and four')).to eq(['One', 'Two', 'Three and four'])
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EasyTags
   module Options
     # Represents a single callback item
@@ -23,9 +25,10 @@ module EasyTags
       # @param [Object] taggable
       # @param [Object] tagging
       def run(taggable:, tagging:)
-        if @callback.is_a?(Symbol)
+        case @callback
+        when Symbol
           taggable.send(@callback, tagging)
-        elsif @callback.is_a?(Proc)
+        when Proc
           taggable.instance_exec tagging, &@callback
         end
       end

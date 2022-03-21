@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EasyTags
   # Handles tag context manipulation
   class TaggableContext

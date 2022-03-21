@@ -58,6 +58,9 @@ jobs:
       - name: Run tests
         run: bundle exec rspec
 
+      - name: Rubocop
+        run: bundle exec rubocop
+
       - name: Report to Code Climate
         uses: paambaati/codeclimate-action@v3.0.0
         env:

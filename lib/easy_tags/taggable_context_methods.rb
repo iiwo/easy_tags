@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EasyTags
   # Handles injecting of the dynamic context related methods
   # Example:
@@ -15,7 +17,7 @@ module EasyTags
   class TaggableContextMethods
     class << self
       def inject(class_instance:, context:)
-        class_instance.class_eval <<-RUBY, __FILE__, __LINE__ + 1
+        class_instance.class_eval <<-RUBY, __FILE__, __LINE__ + 1 # rubocop:disable Style/DocumentDynamicEvalDefinition
           has_many(
             :#{context}_taggings, -> { includes(:tag).where(context: :#{context}) },
             as: :taggable,
