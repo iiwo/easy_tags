@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.7] - 2020-03-28
+### Added
+- Rails 6.1 support
+
 ## [0.2.6] - 2022-01-21
 ### Fixed
 - Fixed bug with reload method arguments forwarding. [Issue #36](https://github.com/iiwo/easy_tags/issues/36)
@@ -39,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Initial release
 
 [Unreleased]: https://github.com/iiwo/easy_tagscompare/v0.2.6...HEAD
+[0.2.7]: https://github.com/iiwo/easy_tags/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/iiwo/easy_tags/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/iiwo/easy_tags/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/iiwo/easy_tags/compare/v0.2.3...v0.2.4
