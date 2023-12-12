@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.7] - 2020-03-28
+## [0.2.8] - 2023-12-12
+### Added
+- Rails 7.0 and 7.1 support (@jwilsjustin)
+
+## [0.2.7] - 2022-03-28
 ### Added
 - Rails 6.1 support
 
@@ -42,7 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2019-07-15
 Initial release
 
-[Unreleased]: https://github.com/iiwo/easy_tagscompare/v0.2.6...HEAD
+[Unreleased]: https://github.com/iiwo/easy_tags/compare/v0.2.8...HEAD
+[0.2.8]: https://github.com/iiwo/easy_tags/compare/v0.2.7...v0.2.8
 [0.2.7]: https://github.com/iiwo/easy_tags/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/iiwo/easy_tags/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/iiwo/easy_tags/compare/v0.2.4...v0.2.5
