@@ -16,6 +16,7 @@ module EasyTags
   #   def bees_list=
   class TaggableContextMethods
     class << self
+      # rubocop:disable Metrics/MethodLength
       def inject(class_instance:, context:)
         class_instance.class_eval <<-RUBY, __FILE__, __LINE__ + 1 # rubocop:disable Style/DocumentDynamicEvalDefinition
           has_many(
@@ -57,6 +58,7 @@ module EasyTags
           end
         RUBY
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end
