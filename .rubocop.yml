@@ -30,6 +30,9 @@ RSpec/NestedGroups:
 RSpec/MessageSpies:
   Enabled: false
 
+Metrics/MethodLength:
+  Max: 10
+
 Metrics/BlockLength:
   Exclude:
     - Rakefile
