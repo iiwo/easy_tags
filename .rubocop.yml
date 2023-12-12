@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - gemfiles/**/*
     - vendor/bundle/**/*
+  TargetRubyVersion: 2.5
 
 Layout/IndentationConsistency:
   EnforcedStyle: indented_internal_methods
@@ -28,6 +29,9 @@ RSpec/NestedGroups:
 
 RSpec/MessageSpies:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 10
 
 Metrics/BlockLength:
   Exclude:

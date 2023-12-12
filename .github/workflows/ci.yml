@@ -58,12 +58,21 @@ jobs:
       - name: Run tests
         run: bundle exec rspec
 
-      - name: Rubocop
-        run: bundle exec rubocop
-
       - name: Report to Code Climate
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: c7f705db7f3e2658ca529a196cd65b724f6b674a7ed6ac2e01928135babdac35
         with:
           coverageCommand: bundle exec rspec # TODO: this should not be needed, but can't make it work
+
+  rubocop_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+      - name: Rubocop
+        run: bundle exec rubocop
