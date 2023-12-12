@@ -12,15 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gemfile: activerecord_5.1
-            ruby: 2.5
-
-          - gemfile: activerecord_5.2
-            ruby: 2.5
-
-          - gemfile: activerecord_5.2
-            ruby: 2.6
-
           - gemfile: activerecord_6.0
             ruby: 2.6
 
@@ -38,6 +29,18 @@ jobs:
 
           - gemfile: activerecord_6.1
             ruby: 3.0
+
+          - gemfile: activerecord_7.0
+            ruby: 3.1
+
+          - gemfile: activerecord_7.0
+            ruby: 3.2
+
+          - gemfile: activerecord_7.0
+            ruby: 3.1
+
+          - gemfile: activerecord_7.0
+            ruby: 3.2
 
     name: ${{ matrix.gemfile }}, ruby ${{ matrix.ruby }}
 
