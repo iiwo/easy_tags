@@ -13,6 +13,7 @@ gem 'rubocop', require: false
 gem 'rubocop-rspec', require: false
 gem 'simplecov'
 gem 'simplecov-console'
+gem 'simplecov_json_formatter'
 gem 'sqlite3'
 
 # Specify your gem's dependencies in easy_tags.gemspec

@@ -28,6 +28,7 @@ end
 
 class TaggableModel < ActiveRecord::Base
   include EasyTags::Taggable
+
   easy_tags_on :highlights, :birds, :tags
   easy_tags_on :bees
 end

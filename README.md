@@ -1,6 +1,6 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/5c35fe854f8cbd3f1209/maintainability)](https://codeclimate.com/github/iiwo/easy_tags/maintainability)
+[![Maintainability](https://qlty.sh/gh/iiwo/projects/easy_tags/maintainability.svg)](https://qlty.sh/gh/iiwo/projects/easy_tags)
 [![CI Status](https://github.com/iiwo/easy_tags/workflows/CI/badge.svg?branch=master)](https://github.com/iiwo/easy_tags/actions?query=workflow%3ACI+branch%3Amaster)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5c35fe854f8cbd3f1209/test_coverage)](https://codeclimate.com/github/iiwo/easy_tags/test_coverage)
+[![Code Coverage](https://qlty.sh/gh/iiwo/projects/easy_tags/coverage.svg)](https://qlty.sh/gh/iiwo/projects/easy_tags)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

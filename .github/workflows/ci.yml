@@ -3,44 +3,52 @@ name: CI
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+  id-token: write # Required for OIDC
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
     strategy:
       fail-fast: false
       matrix:
         include:
           - gemfile: activerecord_6.0
-            ruby: 2.6
-
-          - gemfile: activerecord_6.0
-            ruby: 2.7
-
-          - gemfile: activerecord_6.0
-            ruby: 3.0
+            ruby: '3.0'
 
           - gemfile: activerecord_6.1
-            ruby: 2.6
-
-          - gemfile: activerecord_6.1
-            ruby: 2.7
-
-          - gemfile: activerecord_6.1
-            ruby: 3.0
+            ruby: '3.0'
 
           - gemfile: activerecord_7.0
-            ruby: 3.1
+            ruby: '3.1'
 
           - gemfile: activerecord_7.0
-            ruby: 3.2
+            ruby: '3.2'
 
-          - gemfile: activerecord_7.0
-            ruby: 3.1
+          - gemfile: activerecord_7.1
+            ruby: '3.1'
 
-          - gemfile: activerecord_7.0
-            ruby: 3.2
+          - gemfile: activerecord_7.1
+            ruby: '3.2'
+
+          - gemfile: activerecord_8.0
+            ruby: '3.2'
+
+          - gemfile: activerecord_8.0
+            ruby: '3.3'
+
+          - gemfile: activerecord_8.0
+            ruby: '3.4'
+
+          - gemfile: activerecord_8.1
+            ruby: '3.3'
+
+          - gemfile: activerecord_8.1
+            ruby: '3.4'
 
     name: ${{ matrix.gemfile }}, ruby ${{ matrix.ruby }}
 
@@ -55,18 +63,16 @@ jobs:
 
       - name: Bundle install
         run: |
-          bundle config set gemfile "${GITHUB_WORKSPACE}/gemfiles/${{ matrix.gemfile }}.gemfile"
           bundle install --jobs 4 --retry 3
 
       - name: Run tests
         run: bundle exec rspec
 
       - name: Report to Code Climate
-        uses: paambaati/codeclimate-action@v3.0.0
-        env:
-          CC_TEST_REPORTER_ID: c7f705db7f3e2658ca529a196cd65b724f6b674a7ed6ac2e01928135babdac35
+        uses: qltysh/qlty-action/coverage@v2
         with:
-          coverageCommand: bundle exec rspec # TODO: this should not be needed, but can't make it work
+          oidc: true
+          files: coverage/coverage.json
 
   rubocop_check:
     runs-on: ubuntu-latest

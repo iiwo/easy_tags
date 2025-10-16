@@ -11,7 +11,8 @@ gem "rubocop", require: false
 gem "rubocop-rspec", require: false
 gem "simplecov"
 gem "simplecov-console"
-gem "sqlite3"
+gem "simplecov_json_formatter"
+gem "sqlite3", "~> 1.4"
 gem "activerecord", "~> 7.0.0"
 gem "activesupport", "~> 7.0.0"
 
