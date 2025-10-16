@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
+require 'logger'
 require 'rspec'
 require 'easy_tags'
 require 'database_cleaner'
 require 'simplecov'
 require 'db-query-matchers'
+require 'simplecov_json_formatter'
 
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
+SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 SimpleCov.start
 
 RSpec.configure do |config|
